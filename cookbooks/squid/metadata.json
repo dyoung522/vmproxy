@@ -1,0 +1,38 @@
+{
+  "name": "squid",
+  "version": "0.5.3",
+  "description": "Installs/configures squid as a simple caching proxy",
+  "long_description": "squid Cookbook\n==============\nConfigures squid as a caching proxy.\n\n\nRecipes\n-------\n### default\nThe default recipe installs squid and sets up simple proxy caching. As of now, the options you may change are the port (`node['squid']['port']`) and the network the caching proxy is available on the subnet from `node.ipaddress` (ie. \"192.168.1.0/24\") but may be overridden with `node['squid']['network']`. The size of objects allowed to be stored has been bumped up to allow for caching of installation files.\nAn optional (`node['squid']['cache_peer']`), if set, will be written verbatim to the template.\n\n\nUsage\n-----\nInclude the squid recipe on the server. Other nodes may search for this node as their caching proxy and use the `node.ipaddress` and `node['squid']['port']` to point at it.\n\nDatabags are able to be used for storing host & url acls and also which hosts/nets are able to access which hosts/url\n\n### LDAP Authentication\n\n* Set (`node['squid']['enable_ldap']`) to true.\n* Modify the ldap attributes for your environment.\n  * If you use anonymous bindings, two attributes are optional, ['squid']['ldap_binddn'] and ['squid']['ldap_bindpassword'].\n  * All other attributes are required.\n  * See http://wiki.squid-cache.org/ConfigExamples/Authenticate/Ldap for further help.\n* To create the ldap acls in squid.conf, you also need the two ldap_auth databag items as shown in the LDAP Databags below.\n\nExample Databags\n----------------\n### squid_urls - yubikey item\n```javascript\n{\n  \"urls\": [\n    \"^https://api.yubico.com/wsapi/2.0/verify\"\n  ],\n  \"id\": \"yubikey\"\n}\n```\n\n### squid_hosts - bastion item\n```javascript\n{\n  \"type\": \"src\",\n  \"id\": \"bastion\",\n  \"net\": [\n    \"192.168.0.2/32\"\n  ]\n}\n```\n\n### squid_acls - bastion item\n```javascript\n{\n  \"id\": \"bastion\",\n  \"acl\": [\n    [\n      \"yubikey\",\n      \"allow\"\n    ],\n    [\n      \"all\",\n      \"deny\"\n    ]\n  ]\n}\n```\n\nLDAP Databags\n-------------\n\nThe following two data bags are only required if you are using LDAP Authentication.\n\n### squid_hosts - ldap_auth item\n```javascript\n{\n  \"type\": \"proxy_auth\",\n  \"id\": \"ldap_auth\",\n  \"net\": [\n    \"REQUIRED\"\n  ]\n}\n```\n\n### squid_acls - ldap_auth item\n```javascript\n{\n  \"id\": \"ldap_auth\",\n  \"acl\": [\n    [\n      \"\",\n      \"allow\"\n    ]\n  ]\n}\n```\n\nLicense & Authors\n-----------------\n- Author:: Matt Ray (<matt@chef.io>)\n- Author:: Sean OMeara (<someara@chef.io>)\n\n```text\nCopyright 2012-2015 Chef Software, Inc.\n\nLicensed under the Apache License, Version 2.0 (the \"License\");\nyou may not use this file except in compliance with the License.\nYou may obtain a copy of the License at\n\n    http://www.apache.org/licenses/LICENSE-2.0\n\nUnless required by applicable law or agreed to in writing, software\ndistributed under the License is distributed on an \"AS IS\" BASIS,\nWITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\nSee the License for the specific language governing permissions and\nlimitations under the License.\n```\n",
+  "maintainer": "Chef Software, Inc.",
+  "maintainer_email": "cookbooks@chef.io",
+  "license": "Apache 2.0",
+  "platforms": {
+    "debian": ">= 0.0.0",
+    "ubuntu": ">= 0.0.0",
+    "centos": ">= 0.0.0",
+    "fedora": ">= 0.0.0",
+    "redhat": ">= 0.0.0",
+    "scientific": ">= 0.0.0",
+    "suse": ">= 0.0.0",
+    "amazon": ">= 0.0.0"
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+    "squid": "Installs and configures Squid."
+  }
+}
