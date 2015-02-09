@@ -44,7 +44,7 @@ You'll need something to redirect web-traffic to your proxy server.
 
 Most modern browsers have plugins/extensions available online for this very purpose, so find one you like. Personally, I like [Proxy SwitchyOmega](https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif) for chrome, but you can use whatever works for you.
 
-Configure it to point your Proxy Server running at `192.168.50.100`
+Configure it to point your Proxy Server running at `192.168.50.100:3128`
 
 That's it!
 
