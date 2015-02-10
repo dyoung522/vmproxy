@@ -23,10 +23,10 @@ Vagrant.configure(2) do |config|
   # end
 
   config.vm.provision 'System Updates', type: 'shell', inline: <<-SHELL
-    sudo apt-get update
-    sudo apt-get -y upgrade
-    sudo apt-get -y autoremove
-    sudo apt-get install -y openconnect
+    apt-get update
+    apt-get -y upgrade
+    apt-get -y autoremove
+    apt-get install -y openconnect
   SHELL
 
   config.vm.provision 'Proxy', type: 'chef_solo' do |chef|
@@ -34,7 +34,7 @@ Vagrant.configure(2) do |config|
   end
 
   config.vm.provision 'VPN', type: 'shell', run: 'always', inline: <<-SHELL
-    /usr/sbin/sudo /bin/bash /vagrant/scripts/start_vpn.sh &
+    /bin/bash /vagrant/scripts/start_vpn.sh&
     echo "Up and Running!"
   SHELL
 end

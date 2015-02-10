@@ -29,7 +29,7 @@ fi
 
 # Sanity check
 if [[ -z "$VPN_USER" || -z "$VPN_PASS" || -z "$VPN_URL" ]] ; then
-  die "Please set the appropriate VPN_USER, VPN_PASS, and VPN_URL environment variables in scripts/ENV first"
+  die "Whoops! We can't find the required ENV variables... did you remember to set up the .env file?"
 fi
 
 # Start the VPN client, looping so we reconnect upon a disconnect.
