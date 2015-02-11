@@ -22,19 +22,19 @@ Vagrant.configure(2) do |config|
   #   push.app = 'YOUR_ATLAS_USERNAME/YOUR_APPLICATION_NAME'
   # end
 
-  config.vm.provision 'System Updates', type: 'shell', inline: <<-SHELL
+  config.vm.provision 'System Configuration', type: 'shell', inline: <<-SHELL
     apt-get update
     apt-get -y upgrade
     apt-get -y autoremove
     apt-get install -y openconnect
   SHELL
 
-  config.vm.provision 'Proxy', type: 'chef_solo' do |chef|
+  config.vm.provision 'Proxy Server', type: 'chef_solo' do |chef|
     chef.add_recipe "squid"
   end
 
-  config.vm.provision 'VPN', type: 'shell', run: 'always', inline: <<-SHELL
+  config.vm.provision 'Start VPN', type: 'shell', run: 'always', inline: <<-SHELL
     /bin/bash /vagrant/scripts/start_vpn.sh&
-    echo "Up and Running!"
+    echo "VPN Proxy started!"
   SHELL
 end
