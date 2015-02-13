@@ -30,38 +30,59 @@ This will create a small vagrant machine running a caching proxy server and  the
   export VPN_LOGFILE='vpn.log'
   ```
 
+1. Copy `proxy.yml.example` to `proxy.yml` and modify it appropriately, here's the basic syntax:
+
+  ```yaml
+  # a list of hosts we should always proxy for
+  proxy:
+    - '*.proxied-domain.com'
+    - 'always-proxy-me.example.com'
+
+  # an optional list of hosts we should never proxy for, use this to override hosts in proxied domains
+  direct:
+    - 'never-proxy-me.proxied-domain.com'
+
+  # What should we default to, 'proxy' or 'direct'? if unset, the default is 'direct'
+  default: direct
+  ```
+  
 1. Launch the VM
 
   ```sh
   vagrant up
   ```
   
-1. That's it, your proxy server is now up and running at `192.168.50.100`. In case something goes wrong, you can check `logs/vpn.log` for additional information.
+1. That's it, your proxy server is now up and running at `192.168.50.100:3128`. In case something goes wrong, you can check `logs/vpn.log` for additional information.
 
 ## Great! Now, how do I use it?
 
-You'll need something to redirect web-traffic to your proxy server.
+There are two ways:
 
-Most modern browsers have plugins/extensions available online for this very purpose, so find one you like. 
+1. You can redirect web-traffic to your proxy server via a browser plugin:
+
+  Most modern browsers have plugins/extensions available online for this very purpose, so find one you like. 
 Personally, I like [Proxy SwitchyOmega](https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif) 
 for chrome, but you can use whatever works for you.
 
-Configure it to point your Proxy Server running at `192.168.50.100:3128`
+  Configure it to point your Proxy Server running at `192.168.50.100:3128`
+
+2. Configure autoproxy by either pointing your browser proxy or system network configuration at `http://192.168.50.100/proxy.pac`.
+
+  Under OS X, you can do this in `System Preferences -> Network -> [network adaptor] -> Advanced -> Proxies -> Automatic Proxy Configuration`
 
 That's it!
 
-### You should know...
+### What you should know...
 
-- The VPN client logs to log/vpn.log (by default), so check there for problems first.
+- The VPN client logs to `log/vpn.log` (by default), so check for problems there first.
 - The VPN client will attempt to reconnect after 60 seconds *(or whatever you've set `$VPN_TIMEOUT` to be)* of being disconnected... forever
 - To stop the proxy altogether, run `vagrant halt`
 - To restart it, run `vagrant up`
-- To change the Proxy IP address from `192.168.50.100`, you'll need to modify the `Vagrantfile` and restart the VM with `vagrant reload`
 
-### Known Issues
+#### Known Issues
 
-- If you encounter a CHEF error while starting the VM, you'll need to
-  remove the vagrant synced_folders directory, like this:
+- If you encounter a CHEF error regarding "shared folders" while starting the VM, you'll need to
+  remove the vagrant synced_folders file...
 
   ```sh
   rm .vagrant/machines/default/virtualbox/synced_folders
