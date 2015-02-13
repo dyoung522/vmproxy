@@ -52,20 +52,21 @@ That's it!
 
 ### You should know...
 
+- The VPN client logs to log/vpn.log (by default), so check there for problems first.
 - The VPN client will attempt to reconnect after 60 seconds *(or whatever you've set `$VPN_TIMEOUT` to be)* of being disconnected... forever
-- To stop the proxy altogether, run `vagrant suspend`
+- To stop the proxy altogether, run `vagrant halt`
 - To restart it, run `vagrant up`
 - To change the Proxy IP address from `192.168.50.100`, you'll need to modify the `Vagrantfile` and restart the VM with `vagrant reload`
 
 ### Known Issues
 
 - If you encounter a CHEF error while starting the VM, you'll need to
-  remove the vagrant synced_folders directory, as follows:
+  remove the vagrant synced_folders directory, like this:
 
   ```sh
   rm .vagrant/machines/default/virtualbox/synced_folders
   ```
   
 - Sometimes the OpenConnect VPN client loses it's ability to obtain a valid
-  certificate. If you see errors in your vpn.log, run `vagrant reload` and that
-  typically clears it up.
+  certificate and gets stuck. If you see errors in your vpn.log along those lines,
+  run `vagrant reload` and that typically clears it up.
