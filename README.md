@@ -42,7 +42,9 @@ This will create a small vagrant machine running a caching proxy server and  the
 
 You'll need something to redirect web-traffic to your proxy server.
 
-Most modern browsers have plugins/extensions available online for this very purpose, so find one you like. Personally, I like [Proxy SwitchyOmega](https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif) for chrome, but you can use whatever works for you.
+Most modern browsers have plugins/extensions available online for this very purpose, so find one you like. 
+Personally, I like [Proxy SwitchyOmega](https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif) 
+for chrome, but you can use whatever works for you.
 
 Configure it to point your Proxy Server running at `192.168.50.100:3128`
 
@@ -54,3 +56,15 @@ That's it!
 - To stop the proxy altogether, run `vagrant suspend`
 - To restart it, run `vagrant up`
 - To change the Proxy IP address from `192.168.50.100`, you'll need to modify the `Vagrantfile` and restart the VM with `vagrant reload`
+
+### Known Issues
+
+- If you encounter a CHEFF error when attempting to start the VM, you'll need to
+  remove the synced_folders directory.
+
+  ```sh
+  rm .vagrant/machines/default/virtualbox/synced_folders
+  ```
+- Sometimes the OpenConnect VPN client loses it's ability to obtain a valid
+  certificate. If you see errors in your vpn.log, run `vagrant reload` and that
+  typically clears it up.
