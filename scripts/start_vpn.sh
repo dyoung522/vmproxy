@@ -15,13 +15,13 @@ LOGDIR="${ROOT}/log"
 LOGFILE="${LOGDIR}/${LOGNAME}"
 
 die() {
-    echo $*
-    echo "Aborting"
+    echo $@ >&2
+    echo "Aborting" >&2
     exit 1
 }
 
 log() {
-    echo $* >> "$LOGFILE"
+  echo $@ >> "$LOGFILE"
 }
 
 # Make sure we're running as superuser
@@ -30,7 +30,7 @@ if [[ $(id -u) -ne 0 ]] ; then
 fi
 
 # Create log directory if necessary
-[[ ! -d "$LOGDIR" ]] && mkdir -p "$LOGDIR" || die "Unable to create ${LOGDIR}"
+[[ ! -d "$LOGDIR" ]] && mkdir -p "$LOGDIR"
 
 # Sanity check
 if [[ -z "$VPN_USER" || -z "$VPN_PASS" || -z "$VPN_URL" ]] ; then
@@ -38,19 +38,21 @@ if [[ -z "$VPN_USER" || -z "$VPN_PASS" || -z "$VPN_URL" ]] ; then
 fi
 
 # Start the VPN client, looping so we reconnect upon a disconnect.
-while true ; do
-    if [[ ! -f "${ROOT}/.NOVPN" ]] ; then
-        log "===================================================="
-        log "Starting VPN Session on $(date)"
-        log "===================================================="
-        echo -n "$VPN_PASS" | /usr/sbin/openconnect -u "$VPN_USER" --passwd-on-stdin "$VPN_URL" >> "$LOGFILE" 2>&1
-        log "----------------------------------------------------"
-        log "VPN Session Ended"
-    else
-        log ".NOVPN semephore exists, remove this file to activate VPN"
-    fi
+echo "Transparent Proxy Starting, check log/${LOGNAME} for details"
+(
+    while true ; do
+        if [[ ! -f "${ROOT}/.NOVPN" ]] ; then
+            log "===================================================="
+            log "Starting VPN Session on $(date)"
+            log "===================================================="
+            echo -n "$VPN_PASS" | /usr/sbin/openconnect -u "$VPN_USER" --passwd-on-stdin "$VPN_URL" >> "$LOGFILE" 2>&1
+            log "----------------------------------------------------"
+            log "VPN Session Ended"
+        else
+            log ".NOVPN semephore exists, remove this file to activate VPN"
+        fi
 
-    log "Restarting in ${TIMEOUT} seconds..."
-    sleep $TIMEOUT
-done
-
+        log "Restarting in ${TIMEOUT} seconds..."
+        sleep $TIMEOUT
+    done
+)&
