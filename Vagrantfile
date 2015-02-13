@@ -26,15 +26,14 @@ Vagrant.configure(2) do |config|
     apt-get update
     apt-get -y upgrade
     apt-get -y autoremove
-    apt-get install -y openconnect
+    apt-get -y install openconnect
+    apt-get -y install nginx
   SHELL
 
   config.vm.provision 'Proxy Server', type: 'chef_solo' do |chef|
     chef.add_recipe "squid"
   end
 
-  config.vm.provision 'Start VPN', type: 'shell', run: 'always', inline: <<-SHELL
-    /bin/bash /vagrant/scripts/start_vpn.sh&
-    echo "VPN Proxy started!"
-  SHELL
+  config.vm.provision 'Create PAC', type: 'shell', run: 'always', path: 'scripts/build_proxy.rb'
+  config.vm.provision 'Start VPN',  type: 'shell', run: 'always', path: 'scripts/start_vpn.sh'
 end

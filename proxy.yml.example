@@ -1,0 +1,13 @@
+## Copy this file to proxy.yml
+
+# a list of hosts we should always proxy for
+proxy:
+  - '*.proxied-domain.com'
+  - 'always-proxy-me.example.com'
+
+# an optional list of hosts we should never proxy for, use this to override hosts in proxied domains
+direct:
+  - 'never-proxy-me.proxied-domain.com'
+
+# What should we default to, 'proxy' or 'direct'? if unset, the default is 'direct'
+default: direct
