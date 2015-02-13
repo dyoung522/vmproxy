@@ -6,6 +6,7 @@ Vagrant.configure(2) do |config|
 
   config.vm.network :private_network, ip: '192.168.50.100'
   config.vm.network :forwarded_port, guest: 3128, host: 3128 # Squid
+  config.vm.network :forwarded_port, guest: 8080, host: 3128 # Squid
 
   # Configure a small VirtualBox system (we don't need much)
   config.vm.provider :virtualbox do |v|
@@ -14,13 +15,6 @@ Vagrant.configure(2) do |config|
     v.memory = '512'
     v.cpus = 1
   end
-
-  # Define a Vagrant Push strategy for pushing to Atlas. Other push strategies
-  # such as FTP and Heroku are also available. See the documentation at
-  # https://docs.vagrantup.com/v2/push/atlas.html for more information.
-  # config.push.define 'atlas' do |push|
-  #   push.app = 'YOUR_ATLAS_USERNAME/YOUR_APPLICATION_NAME'
-  # end
 
   config.vm.provision 'System Configuration', type: 'shell', inline: <<-SHELL
     apt-get update

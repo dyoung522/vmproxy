@@ -8,6 +8,9 @@ begin
 rescue Psych::SyntaxError
   STDERR.puts 'Syntax error in proxy.yml, please check and try again'
   exit 1
+rescue Errno::ENOENT
+  STDERR.puts 'Please copy proxy.yml.example to proxy.yml and modify it for your needs'
+  exit 1
 end
 
 # Set static variable
