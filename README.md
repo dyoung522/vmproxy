@@ -59,12 +59,13 @@ That's it!
 
 ### Known Issues
 
-- If you encounter a CHEFF error when attempting to start the VM, you'll need to
-  remove the synced_folders directory.
+- If you encounter a CHEF error while starting the VM, you'll need to
+  remove the vagrant synced_folders directory, as follows:
 
   ```sh
   rm .vagrant/machines/default/virtualbox/synced_folders
   ```
+  
 - Sometimes the OpenConnect VPN client loses it's ability to obtain a valid
   certificate. If you see errors in your vpn.log, run `vagrant reload` and that
   typically clears it up.
