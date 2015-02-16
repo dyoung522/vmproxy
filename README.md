@@ -91,3 +91,15 @@ That's it!
 - Sometimes the OpenConnect VPN client loses it's ability to obtain a valid
   certificate and gets stuck. If you see errors in your vpn.log along those lines,
   run `vagrant reload` and that typically clears it up.
+
+- If you find more, please [submit an issue](https://github.com/dyoung522/vmproxy/issues/new)
+ 
+## I want to help make this faster/stronger/better!
+
+That's great, any positive contributions are welcome!
+
+1. [Fork it](https://github.com/dyoung522/vmproxy/fork)
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request
