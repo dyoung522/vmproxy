@@ -5,6 +5,8 @@ This will create a small vagrant machine running a caching proxy server and  the
 
 ## Sounds good! How do I get this thing up and running?
 
+1. Install [Vagrant](http://www.vagrantup.com) and [VirtualBox](http://www.virtualbox.org), as we depend on these.
+
 1. Clone the repo
 
   ```sh
