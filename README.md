@@ -5,6 +5,8 @@ This will create a small vagrant machine running a caching proxy server and  the
 
 ## Sounds good! How do I get this thing up and running?
 
+### New Installation
+
 1. Install [Vagrant](http://www.vagrantup.com) and [VirtualBox](http://www.virtualbox.org), as we depend on these.
 
 1. Clone the repo
@@ -53,8 +55,15 @@ This will create a small vagrant machine running a caching proxy server and  the
   ```sh
   vagrant up
   ```
-  
-1. That's it, your proxy server is now up and running at `192.168.50.100:3128`. In case something goes wrong, you can check `logs/vpn.log` for additional information.
+
+### Upgrading from a previous release  
+
+1. Run `vagrant destroy` -- *this ensures you get the latest provisioning*
+1. Then run `vagrant up` as usual
+
+### That's it!
+
+Your proxy server is now up and running at `192.168.50.100:3128`. In case something goes wrong, you can check `logs/vpn.log` for additional information.
 
 ## Great! Now, how do I use it?
 
