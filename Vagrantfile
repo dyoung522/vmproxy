@@ -10,9 +10,10 @@ Vagrant.configure(2) do |config|
 
   # Configure a small VirtualBox system (we don't need much)
   config.vm.provider :virtualbox do |v|
-    v.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+    v.customize ["modifyvm", :id, "--cpuexecutioncap", "80"]
+    v.customize ["modifyvm", :id, "--vram", "16"]
     v.name = 'vmproxy'
-    v.memory = '160'
+    v.memory = '512'
     v.cpus = 1
   end
 
