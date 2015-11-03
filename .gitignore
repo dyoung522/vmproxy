@@ -3,3 +3,4 @@
 log
 .NOVPN
 proxy.yml
+do-not-cache.txt

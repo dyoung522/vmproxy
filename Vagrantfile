@@ -26,6 +26,10 @@ Vagrant.configure(2) do |config|
     apt-get -y install nginx
   SHELL
 
+  config.vm.provision 'copy do-not-cache', type: 'shell', run: 'always', inline: <<-SHELL
+    [[ -f /vagrant/do-not-cache.txt ]] && cp /vagrant/do-not-cache.txt /etc/squid3/do-not-cache.txt
+  SHELL
+
   config.vm.provision 'Proxy Server', type: 'chef_solo' do |chef|
     chef.install = false
     chef.add_recipe "squid"
