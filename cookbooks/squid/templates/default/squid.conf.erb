@@ -37,6 +37,8 @@ acl Safe_ports port 777		# multiling http
 acl Safe_ports port 631		# cups
 acl Safe_ports port 873		# rsync
 acl Safe_ports port 901		# SWAT
+acl DoNotCache dstdomain "/etc/squid3/do-not-cache.txt"
+no_cache deny DoNotCache
 acl purge method PURGE
 acl CONNECT method CONNECT
 
