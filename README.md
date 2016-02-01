@@ -49,7 +49,7 @@ This will create a small vagrant machine running a caching proxy server and  the
   # What should we default to, 'proxy' or 'direct'? if unset, the default is 'direct'
   default: direct
   ```
-1. _(Optional)_ Copy `do-not-cache.txt.sample` to `do-not-cache.txt` and modify it for your needs.
+1. Copy `do-not-cache.txt.sample` to `do-not-cache.txt` and modify it for your needs.
    This file specifies any domains you do not wish to be cached by the proxy server (e.g. a local
    development domain).
 
