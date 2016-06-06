@@ -45,7 +45,7 @@ echo "Transparent Proxy Starting, check log/${LOGNAME} for details"
             log "===================================================="
             log "Starting VPN Session on $(date)"
             log "===================================================="
-            echo -n "$VPN_PASS" | /usr/sbin/openconnect -u "$VPN_USER" --passwd-on-stdin "$VPN_URL" >> "$LOGFILE" 2>&1
+            echo -n "$VPN_PASS" | /usr/sbin/openconnect -u "$VPN_USER" --passwd-on-stdin --no-cert-check "$VPN_URL" >> "$LOGFILE" 2>&1
             log "----------------------------------------------------"
             log "VPN Session Ended"
         else
