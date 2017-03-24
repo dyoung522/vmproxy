@@ -9,6 +9,10 @@ Vagrant.configure(2) do |config|
   config.vm.network :forwarded_port, guest: 3128, host: 3128 # Squid
   config.vm.network :forwarded_port, guest: 8080, host: 3128 # Squid
 
+  # deletes standdard local port 2222 and adds 10022 to forward to port 22 on guest
+  config.vm.network :forwarded_port, guest: 22, host: 2222, id: "ssh", disabled: true
+  config.vm.network :forwarded_port, guest: 22, host: 10022, auto_correct: true
+
   config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
 
   # Configure a small VirtualBox system (we don't need much)
